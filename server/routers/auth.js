@@ -59,5 +59,8 @@ router.get('/', (req, res) => { // add 'next' here if needed
   res.send('send login');
 });
 
-router.get('/login/federated/google', passport.authenticate('google'));
+//router.get('/federated/google', passport.authenticate('google'));
+router.get('/federated/google/', (req, res) => {
+  res.send('routing is working');
+});
 module.exports = router;
