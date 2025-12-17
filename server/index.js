@@ -2,6 +2,7 @@
 const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo').default;
+const passport = require('passport');
 
 const defaultRouter = require('./routers/default.js');
 
@@ -22,6 +23,8 @@ app.use(session({
   saveUninitialized: false,
   store: MongoStore.create({mongoUrl: 'mongodb://127.0.0.1:27017/webpets'})
 }));
+
+app.use(passport.authenticate('session'));
 
 app.use(defaultRouter);
 app.use('/login', authRouter);

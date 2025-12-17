@@ -10,7 +10,6 @@ passport.use(new GoogleStrategy({
   scope: ['profile']
 },
   function verify(issuer, profile, cb) {
-    console.log('inside verify function');
     db.Credential.find({provider: issuer, subject: profile.id})
       .then((credentials) => {
         if(!credentials.length){
@@ -53,6 +52,18 @@ passport.use(new GoogleStrategy({
       });
   }
 ));
+
+passport.serializeUser(function(user, cb) {
+  process.nextTick(function() {
+    cb(null, {id: user.id, username: user.username, name: user.name });
+  });
+});
+
+passport.deserializeUser(function(user, cb) {
+  process.nextTick(function() {
+    return cb(null, user);
+  });
+});
 
 const router = express.Router();
 
