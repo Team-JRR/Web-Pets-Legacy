@@ -4,8 +4,8 @@
   "description": "Take care of a virtual pet!",
   "main": "index.js",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "concurrently --kill-others 'webpack --watch' 'nodemon server/index.js'",
+    "start": "node --env-file=server/.env server",
+    "dev": "concurrently --kill-others 'webpack --watch' 'nodemon --env-file=server/.env server'",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx eslint .",
     "build": "webpack"
