@@ -1,7 +1,6 @@
 const express = require('express');
-const passport = require('passport');
 const router = express.Router();
-const db = require('../db');
+const { Pet } = require('../db');
 const skills = require('../data/skills.js');
 
 router.get('/', (req, res) => {
@@ -9,7 +8,7 @@ router.get('/', (req, res) => {
   const { passport } = req.session;
   if (passport) {
     // find the pet with the same userId
-    db.Pet.find({ userId: passport.user.id })
+    Pet.findOne({ userId: passport.user.id })
       .then((pet) => {
         res.status(200).send(pet);
       })
@@ -25,17 +24,17 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { passport } = req.session;
   if (passport) {
-    db.Pet.find({ userId: passport.user.id })
+    Pet.findOne({ userId: passport.user.id })
       .then((pet) => {
         if (pet) {
           res.status(200).send('You already have a pet');
         } else {
-          db.Pet.create({
+          Pet.create({
             userId: passport.user.id,
             petName: req.body.petName,
             training: skills.map((skill) => {
               return {
-                name: skill.catergoryName,
+                name: skill.category,
                 stat: 0,
               };
             }),
@@ -64,7 +63,7 @@ router.post('/', (req, res) => {
 router.patch('/', (req, res) => {
   const { passport } = req.session;
   if(passport){
-    db.Pet.findOneAndUpdate({ userId: passport.user.id }, {petName: req.body.petName}, {new: true})
+    Pet.findOneAndUpdate({ userId: passport.user.id }, {petName: req.body.petName}, {new: true})
     .then((pet) => {
       // change the petName to the req.body.petName
       res.status(200).send(pet);
@@ -82,7 +81,7 @@ router.patch('/', (req, res) => {
 router.delete('/', (req, res) => {
   const { passport } = req.session;
   if(passport){
-    db.Pet.findByIdAndDelete({ userId: passport.user.id })
+    Pet.findByIdAndDelete({ userId: passport.user.id })
     .then(() => {
       res.sendStatus(200);
     })
