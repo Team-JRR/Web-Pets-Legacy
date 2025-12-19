@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oidc');
-const db = require('../db');
+const { Credential, User } = require('../db');
 const trainingRouter = require('./training');
 
 passport.use(new GoogleStrategy({
@@ -11,12 +11,12 @@ passport.use(new GoogleStrategy({
   scope: ['profile']
 },
   function verify(issuer, profile, cb) {
-    db.Credential.find({provider: issuer, subject: profile.id})
+    Credential.find({provider: issuer, subject: profile.id})
       .then((credentials) => {
         if(!credentials.length){
-          db.User.create({name: profile.displayName})
+          User.create({name: profile.displayName})
             .then((newUser) => {
-              db.Credential.create({userId: newUser._id, provider: issuer, subject: profile.id})
+              Credential.create({userId: newUser._id, provider: issuer, subject: profile.id})
                 .then(() => {
                   const user = {
                     id: newUser._id,
@@ -34,7 +34,7 @@ passport.use(new GoogleStrategy({
               return cb(err);
             });
         } else {
-          db.User.findById(credentials[0].userId)
+          User.findById(credentials[0].userId)
             .then((user) => {
               if(!user){
                 return cb(null, false);
@@ -74,6 +74,11 @@ router.get('/oauth2/redirect/google', passport.authenticate('google', {
   successRedirect: '/',
   failureRedirect: '/login'
 }));
+
+router.get('/user', (req, res) => {
+  const { passport } = req.session;
+  res.send(passport ? passport.user.name : null);
+});
 
 router.post('/logout', function(req, res, next) {
   // req.logout(function(err) {

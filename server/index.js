@@ -6,7 +6,6 @@ const passport = require('passport');
 
 const authRouter = require('./routers/auth.js');
 const petRouter = require('./routers/pet.js');
-const db = require('./db');
 
 const app = express();
 const port = 8080;

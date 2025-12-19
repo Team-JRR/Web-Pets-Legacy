@@ -3,7 +3,7 @@
 // while each individual Pokemon has up to 4 of these
 module.exports = [
   {
-    catergoryName: "Scratching",
+    category: "Scratching",
     behaviors: [
       {
         behavior: "scratches you.",
@@ -27,7 +27,7 @@ module.exports = [
     ]
   },
   {
-    catergoryName: "Acrobatics",
+    category: "Acrobatics",
     behaviors: [
       {
         behavior: "blinks at you.",
@@ -58,7 +58,7 @@ module.exports = [
     ]
   },
   {
-    catergoryName: "Litter Box",
+    category: "Litter Box",
     behaviors: [
       {
         behavior: "makes a mess.",

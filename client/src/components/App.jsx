@@ -1,37 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import SkillDashboard from './SkillDashboard';
+import DeviceView from './DeviceView';
 
 const App = () => {
-  const [skillData, setSkillData] = React.useState([]);
+  const [ user, setUser ] = useState({ name: '' });
 
-  // get data on mount
-  React.useEffect(() => {
-    getSkillData();
+  useEffect(() => {
+    axios.get('/user')
+      .then(({ data }) => {
+        setUser({ name: data });
+      })
+      .catch(err => {
+        console.error('Could not get user from client: ', err);
+      });
   }, []);
 
-
   const handleLogout = function() {
-    axios.post('/logout', {});
-  };
-
-  const getSkillData = function() {
-    axios.get('/training')
-      .then((response) => {
-        setSkillData(response.data);
-        console.log(response);
+    axios.post('/logout', {})
+      .then(() => {
+        setUser({ name: '' });
       })
-      .catch((error) => {
-        console.error(error);
+      .catch(err => {
+        console.error('Could not post from client: ', err);
       });
   };
 
+  const { name } = user;
   return (
     <div>
       <h1>Rendering</h1>
+      <h2>{ name ? `Currently logged in as ${name}` : 'Please sign in!' }</h2>
       <button onClick={handleLogout}>Logout</button>
-      <SkillDashboard skillData={skillData} />
+      <div>
+        <h1>Sign in</h1>
+        <a className="button google" href="/login/federated/google">Sign in with Google</a>
+      </div>
+      <DeviceView />
     </div>
   );
 };
