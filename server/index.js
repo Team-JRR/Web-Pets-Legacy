@@ -4,8 +4,6 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo').default;
 const passport = require('passport');
 
-const defaultRouter = require('./routers/default.js');
-
 const authRouter = require('./routers/auth.js');
 const petRouter = require('./routers/pet.js');
 const db = require('./db');
@@ -27,7 +25,6 @@ app.use(session({
 
 app.use(passport.authenticate('session'));
 
-// app.use(defaultRouter);
 app.use('/', authRouter);
 // petRouter
 app.use('/pet', petRouter);
