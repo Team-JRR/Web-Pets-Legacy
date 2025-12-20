@@ -28,7 +28,11 @@ const DeviceView = (props) => {
     if (props.user.name) {
       axios.get('/pet')
         .then(({ data }) => {
-          setPet(data); 
+          if(!data) {
+            setPet(defaultPet);
+          } else {
+            setPet(data);
+          }
         })
         .catch(err => {
           console.error('Could not get pet on client: ', err);
@@ -37,7 +41,6 @@ const DeviceView = (props) => {
       setPet(defaultPet);
     }
   }, [props.user.name]);
-
   return (
     <div id="device" style={cssTest}>
       this is the device :D
