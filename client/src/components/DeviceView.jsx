@@ -22,8 +22,6 @@ const DeviceView = () => {
     borderRadius: '20px',
     margin: '20px',
     padding: '10px',
-    height: '520px',
-    width: 'auto',
   };
 
   useEffect(() => {
@@ -40,7 +38,7 @@ const DeviceView = () => {
     <div id="device" style={cssTest}>
       this is the device :D
       <ScreenView pet={ pet } />
-      <DashboardView />
+      <DashboardView skillData={pet.training}/>
     </div>
   );
 };
