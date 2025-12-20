@@ -10,6 +10,7 @@ function SkillDashboard(props) {
     setSkills(props.skills);
   }, [props.skills]);
 
+  // TODO: - this probably needs to be moved to device
   const refreshSkillData = function() {
     axios.get('/training')
       .then((response) => {
