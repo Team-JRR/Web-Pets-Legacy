@@ -6,16 +6,7 @@ import ScreenView from './ScreenView';
 import DashboardView from './Dashboard/DashboardView';
 
 const DeviceView = (props) => {
-  const defaultPet = {
-    petName: '',
-    health: 0,
-    love: 0,
-    mood: 0,
-    behaviors: [],
-    training: [],
-  };
-
-  const [ pet, setPet ] = useState(defaultPet);
+  const [ pet, setPet ] = useState(null);
 
   const cssTest = {
     backgroundColor: 'pink',
@@ -29,7 +20,7 @@ const DeviceView = (props) => {
       axios.get('/pet')
         .then(({ data }) => {
           if(!data) {
-            setPet(defaultPet);
+            setPet(null);
           } else {
             setPet(data);
           }
@@ -38,7 +29,7 @@ const DeviceView = (props) => {
           console.error('Could not get pet on client: ', err);
         });
     } else {
-      setPet(defaultPet);
+      setPet(null);
     }
   }, [props.user.name]);
 

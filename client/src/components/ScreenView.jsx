@@ -15,20 +15,28 @@ const ScreenView = ({ pet }) => {
       });
   };
 
-  if(pet.petName !== ''){
-    return (
-      <div>
-        <p>{pet.petName}</p>
-      </div>
-    );
-  }
-  
+  const renderScreenContents = () => {
+    if (pet !== null) {
+      return (
+        <div>
+          <p>{pet.petName}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <input type='text' value={petName} onChange={(e) => setPetName(e.target.value)}/>
+          <button onClick={handleSubmit}>Submit</button>
+        </div>
+      );
+    }
+  };
+
   // this is for if the user does not have a pet
   return (
     <div style={{ border: '5px inset hotpink', height: '360px', margin: '5px', backgroundColor: 'lavender' }}>
       this is the screen - kitty goes here
-        <input type='text' value={petName} onChange={(e) => setPetName(e.target.value)}/>
-        <button onClick={handleSubmit}>Submit</button>
+      {renderScreenContents()}
     </div>
   );
 };
