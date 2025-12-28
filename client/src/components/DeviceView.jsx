@@ -62,7 +62,7 @@ const DeviceView = (props) => {
       });
   };
 
-  const [name, setPetName] = useState('');
+  const [name, setName] = useState('');
   // update petname
   const changePetName = () => {
     axios.patch('/pet', {name})
@@ -82,7 +82,7 @@ const DeviceView = (props) => {
       />
       <button onClick={deletePet}>Delete Pet</button>
       <div>
-        <input type='text' value={name} onChange={(e) => setPetName(e.target.value)}/>
+        <input type='text' value={name} onChange={(e) => setName(e.target.value)}/>
         <button onClick={changePetName}>Submit</button>
       </div>
     </div>

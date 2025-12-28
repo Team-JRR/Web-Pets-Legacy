@@ -16,7 +16,7 @@ const ScreenView = ({ pet }) => {
     ]
   };
 
-  const [name, setPetName] = useState('');
+  const [name, setName] = useState('');
 
   const handleSubmit = () => {
     if(name === '') {
@@ -39,7 +39,7 @@ const ScreenView = ({ pet }) => {
     } else {
       return (
         <div>
-          <input className={ styles.input.join(' ') } type='text' value={name} onChange={(e) => setPetName(e.target.value)}/>
+          <input className={ styles.input.join(' ') } type='text' value={name} onChange={(e) => setName(e.target.value)}/>
           <button onClick={handleSubmit}>Submit</button>
         </div>
       );
