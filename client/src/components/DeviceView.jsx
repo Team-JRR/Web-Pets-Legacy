@@ -5,7 +5,7 @@ import axios from 'axios';
 import ScreenView from './ScreenView';
 import DashboardView from './Dashboard/DashboardView';
 
-const DeviceView = (props) => {
+const DeviceView = ({user}) => {
   const [ pet, setPet ] = useState(null);
 
   // const cssTest = {
@@ -23,7 +23,7 @@ const DeviceView = (props) => {
   ];
 
   useEffect(() => {
-    if (props.user.name) {
+    if (user.name) {
       axios.get('/pet')
         .then(({ data }) => {
           if(!data) {
@@ -38,7 +38,7 @@ const DeviceView = (props) => {
     } else {
       setPet(null);
     }
-  }, [props.user.name]);
+  }, [user.name]);
 
   // const dummyPet = () => {
   //   axios.post('/pet', {petName: 'Comet'})
@@ -64,10 +64,10 @@ const DeviceView = (props) => {
   return (
     <div id="device" className={ deviceStyles.join(' ') }>
       this is the device :D
-      <ScreenView pet={ pet } />
+      <ScreenView pet={ pet } user = {user} />
       <DashboardView
         pet={pet}
-        user={props.user}
+        user={user}
         refreshSkillData={refreshSkillData}
       />
     </div>

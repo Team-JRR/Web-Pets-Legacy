@@ -13,15 +13,21 @@ const DashboardView = ({ pet, user, refreshSkillData }) => {
   const tabs = ['Statuses', 'Interactions', 'Skills'];
 
   const renderTab = () => {
-    switch (tab) {
-      case 'Statuses':
-        return <Statuses />;
-      case 'Interactions':
-        return <Interactions />;
-      case 'Skills':
-        return <Skills skills={pet.training} refreshSkillData={refreshSkillData}/>;
-      default:
-        return null;
+    if (pet) {
+      switch (tab) {
+        case 'Statuses':
+          return <Statuses />;
+        case 'Interactions':
+          return <Interactions />;
+        case 'Skills':
+          return <Skills skills={pet.training} refreshSkillData={refreshSkillData}/>;
+        default:
+          return null;
+      }
+    } else if (user.name) {
+      return <p>Adopt a pet to show its data!</p>;
+    } else {
+      return <p>Please sign in</p>;
     }
   };
 
@@ -40,7 +46,7 @@ const DashboardView = ({ pet, user, refreshSkillData }) => {
           return <button name={tabName} onClick={handleTabSelect} key={tabName}>{tabName}</button>;
         })}
       </span>
-      {user.name && pet ? renderTab() : null}
+      {renderTab()}
     </div>
       // <Statuses /> or <Interactions /> or <Skills /> depending on state view
   );

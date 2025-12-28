@@ -2,7 +2,7 @@ import { useState } from 'react';
 import React from 'react';
 import axios from 'axios';
 
-const ScreenView = ({ pet }) => {
+const ScreenView = ({ pet, user }) => {
   const styles = {
     screen: [ // { border: '5px inset hotpink', height: '360px', margin: '5px', backgroundColor: 'lavender' }
       'border-5', // border width
@@ -36,13 +36,15 @@ const ScreenView = ({ pet }) => {
           <p>{pet.name}</p>
         </div>
       );
-    } else {
+    } else if (user.name) {
       return (
         <div>
           <input className={ styles.input.join(' ') } type='text' value={petName} onChange={(e) => setPetName(e.target.value)}/>
           <button onClick={handleSubmit}>Submit</button>
         </div>
       );
+    } else {
+      return <p>Please sign in</p>;
     }
   };
 
