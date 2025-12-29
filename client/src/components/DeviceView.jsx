@@ -22,24 +22,25 @@ const DeviceView = (props) => {
     'p-[15px]', // padding
   ];
 
-  useEffect(() => {
+  const refreshPet = () => {
     if (props.user.name) {
       axios.get('/pet')
-        .then(({ data }) => {
-          if(!data) {
-            setPet(null);
-          } else {
-            setPet(data);
-          }
-        })
-        .catch(err => {
-          console.error('Could not get pet on client: ', err);
-        });
+      .then(({ data }) => {
+        if(!data) {
+          setPet(null);
+        } else {
+          setPet(data);
+        }
+      })
+      .catch(err => {
+        console.error('Could not get pet on client: ', err);
+      });
     } else {
       setPet(null);
     }
-  }, [props.user.name]);
+  };
 
+  useEffect(refreshPet, [props.user.name]);
 
   const refreshSkillData = function() {
     axios.get('/training')
@@ -79,6 +80,7 @@ const DeviceView = (props) => {
         pet={pet}
         user={props.user}
         refreshSkillData={refreshSkillData}
+        refreshPet={refreshPet}
       />
       <button onClick={deletePet}>Delete Pet</button>
       <div>
