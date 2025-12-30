@@ -14,14 +14,26 @@ function SkillDashboard({ skills, refreshSkillData }) {
       .then(response => setAvailableSkills(response.data))
       .catch((error) => console.error('failed to get available skills', error));
   };
+  const [behaviors, setBehaviors] = useState([]);
+  const refreshBehaviors = function() {
+    return axios.get('/training/behavior')
+      .then(response => setBehaviors(response.data))
+      .catch((error) => console.error('failed to get available behaviors', error));
+  };
   useEffect(() => {
     refreshAvailableSkills();
+    refreshBehaviors();
   }, []);
 
   const handleClickTraining = (event) => {
+    const skillName = event.target.getAttribute('data-skillname');
+    const possibleBehaviors = behaviors[skillName];
+    const behavior = possibleBehaviors[Math.floor(Math.random() * possibleBehaviors.length)];
+    console.log(`The cat ${behavior}`);
     axios.patch(`/training/${event.target.name}`, {
       delta: 5
     })
+      .then(refreshBehaviors)
       .then(refreshSkillData)
       .catch((error) => {
         console.error(error);
@@ -86,7 +98,7 @@ function SkillDashboard({ skills, refreshSkillData }) {
         return <div key={skill.name}>
           <p>{skill.name}</p>
           <meter max='100' value={skill.stat}></meter>
-          <button onClick={handleClickTraining} name={skill._id}>Train {skill.name}</button>
+          <button onClick={handleClickTraining} name={skill._id} data-skillname={skill.name}>Train {skill.name}</button>
         </div>;
       })}
       <h5 onClick={() => setMenuOpen(m => !m)}>Change Skills</h5>
