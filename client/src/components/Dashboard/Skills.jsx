@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+/**
+ * A component that displays and interacts with the pet's skills.
+ * Allows the user to view the pet's current skill levels, to train a skill, to learn a new skill, and to forget existing skills.
+ */
 function SkillDashboard({ skills, availableSkills, behaviors, behaviorMessage, refreshSkillData }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [skillToDelete, setSkillToDelete] = useState('');

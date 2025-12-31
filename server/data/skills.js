@@ -137,6 +137,11 @@ const findBehaviors = (petTraining) => {
   return behaviors;
 };
 
+/**
+ * Finds the skills that a pet does not know, but could learn given its current love stat.
+ * @param {Array} petTraining - an array of pet training objects with a name and stat
+ * @param {Number} love - the pet's love stat
+ */
 const findAvailableSkills = (petTraining, love) => {
   const currentSkills = petTraining.map((skill) => skill.name);
   const availableSkills = [];

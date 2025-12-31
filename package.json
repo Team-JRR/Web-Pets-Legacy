@@ -10,7 +10,8 @@
     "lint": "npx eslint .",
     "build": "webpack",
     "style": "npx @tailwindcss/cli -i ./client/src/input.css -o ./client/dist/output.css",
-    "style:dev": "npx @tailwindcss/cli -i ./client/src/input.css -o ./client/dist/output.css --watch"
+    "style:dev": "npx @tailwindcss/cli -i ./client/src/input.css -o ./client/dist/output.css --watch",
+    "doc": "./node_modules/.bin/jsdoc ./client/src ./server -r -d ./client/dist/docs"
   },
   "author": "",
   "license": "UNLICENSED",
@@ -27,6 +28,7 @@
     "eslint-plugin-react": "^7.37.5",
     "globals": "^16.5.0",
     "html-webpack-plugin": "^5.6.5",
+    "jsdoc": "^4.0.5",
     "nodemon": "^3.1.11",
     "tailwindcss": "^4.1.18",
     "webpack": "^5.103.0",
