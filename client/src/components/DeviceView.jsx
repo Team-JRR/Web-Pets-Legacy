@@ -7,8 +7,9 @@ import DashboardView from './Dashboard/DashboardView';
 
 const DeviceView = ({user}) => {
   const [ pet, setPet ] = useState(null);
-  const [availableSkills, setAvailableSkills] = useState([]);
-  const [behaviors, setBehaviors] = useState([]);
+  const [ message, setMessage ] = useState('');
+  const [ availableSkills, setAvailableSkills ] = useState([]);
+  const [ behaviors, setBehaviors ] = useState([]);
 
   // const cssTest = {
   //   backgroundColor: 'pink',
@@ -55,21 +56,30 @@ const DeviceView = ({user}) => {
 
   const refreshSkillData = function(updateTrainingData = true) {
     axios.get('/training/')
-      .then(({ data }) => {
+      .then(({ data: { training, available, behaviors } }) => {
         // if the whole pet object has just been fetched, (e.g. on login),
         // there's no need to update pet.training and risk some sort of state conflict
         if (updateTrainingData) {
           setPet({
             ...pet,
-            training: data.training
+            training
           });
         }
-        setAvailableSkills(data.available);
-        setBehaviors(data.behaviors);
+        setAvailableSkills(available);
+        setBehaviors(behaviors);
       })
       .catch((error) => {
         console.error('Failed to get pet skill data:', error);
       });
+  };
+
+  const displayMessage = function(message) {
+    setMessage(message);
+  };
+
+  // the skills dashboard doesn't actually have access to the pet's name
+  const behaviorMessage = function(behavior) {
+    displayMessage(`${pet.name} ${behavior}`);
   };
 
   // add a delete button
@@ -92,12 +102,13 @@ const DeviceView = ({user}) => {
   return (
     <div id="device" className={ deviceStyles.join(' ') }>
       this is the device :D
-      <ScreenView pet={ pet } user = {user} />
+      <ScreenView pet={ pet } user = {user} message={message}/>
       <DashboardView
         pet={pet}
         user={user}
         availableSkills={availableSkills}
         behaviors={behaviors}
+        behaviorMessage={behaviorMessage}
         refreshSkillData={refreshSkillData}
         refreshPet={refreshPet}
       />

@@ -2,13 +2,12 @@ import { useState } from 'react';
 import React from 'react';
 import axios from 'axios';
 
-const ScreenView = ({ pet, user }) => {
+const ScreenView = ({ pet, user, message }) => {
   const styles = {
     screen: [ // { border: '5px inset hotpink', height: '360px', margin: '5px', backgroundColor: 'lavender' }
       'border-5', // border width
       'border-pink-600', // border color
-      'bg-indigo-50', // background color
-      'h-[180px]', // height
+      'bg-indigo-50' // background color
     ],
     input: [
       'rounded-md', // border radius
@@ -51,8 +50,9 @@ const ScreenView = ({ pet, user }) => {
   // this is for if the user does not have a pet
   return (
     <div className={ styles.screen.join(' ') }>
-      this is the screen - kitty goes here
+      {message}
       {renderScreenContents()}
+      <img src="/sunny.gif" className="w-[600px] h-[300px]" style={{"imageRendering": "pixelated"}}/>
     </div>
   );
 };

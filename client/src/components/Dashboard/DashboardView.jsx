@@ -5,7 +5,7 @@ import Skills from './Skills';
 import Statuses from './Statuses';
 import Interactions from './Interactions';
 
-const DashboardView = ({ pet, user, availableSkills, behaviors, refreshSkillData, refreshPet }) => {
+const DashboardView = ({ pet, user, availableSkills, behaviors, behaviorMessage, refreshSkillData, refreshPet }) => {
   
   const [ tab, setTab ] = useState('Statuses');
 
@@ -24,6 +24,7 @@ const DashboardView = ({ pet, user, availableSkills, behaviors, refreshSkillData
             skills={pet.training}
             availableSkills={availableSkills}
             behaviors={behaviors}
+            behaviorMessage={behaviorMessage}
             refreshSkillData={refreshSkillData}
           />;
         default:

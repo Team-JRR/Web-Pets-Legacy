@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function SkillDashboard({ skills, availableSkills, behaviors, refreshSkillData }) {
+function SkillDashboard({ skills, availableSkills, behaviors, behaviorMessage, refreshSkillData }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [skillToDelete, setSkillToDelete] = useState('');
   const [skillToCreate, setSkillToCreate] = useState('');
@@ -10,7 +10,7 @@ function SkillDashboard({ skills, availableSkills, behaviors, refreshSkillData }
     const skillName = event.target.getAttribute('data-skillname');
     const possibleBehaviors = behaviors[skillName];
     const behavior = possibleBehaviors[Math.floor(Math.random() * possibleBehaviors.length)];
-    console.log(`The cat ${behavior}`);
+    behaviorMessage(behavior); // display message on screen describing what the cat did
     axios.patch(`/training/${event.target.name}`, {
       delta: 5
     })
