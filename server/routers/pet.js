@@ -3,6 +3,15 @@ const router = express.Router();
 const { Pet } = require('../db');
 const { skills } = require('../data/skills.js');
 
+/**
+ * This file holds the request handling for when a user sends a request to the express server.
+ * This handles any type of fetching, creating, updating, and deletion of pet data.
+ */
+
+/**
+ * This get request handling will fetch the pet data from the database based on the user that is
+ * currently logged in on that session.
+ */
 router.get('/', (req, res) => {
   // if user is signed in - we check the session to see if the passport exist
   const { passport } = req.session;
@@ -21,6 +30,13 @@ router.get('/', (req, res) => {
   }
 });
 
+/**
+ * This is the post handling that will handle the post request the user sends when they want to create a pet.
+ * It will check if there is an active session for the user that is trying to create a pet. If there is no
+ * session - meaning the user is NOT signed in - it will not allow them to create a pet. If a session exist for
+ * the user that is signed in, this request handling will check if they have currently have a pet before making
+ * one.
+ */
 router.post('/', (req, res) => {
   const { passport } = req.session;
   if (passport) {
@@ -65,6 +81,12 @@ router.post('/', (req, res) => {
   }
 });
 
+/**
+ * This PATCH request handling allows the user to change the name of the pet
+ * that they currently have in the database. It will check if the user is logged in
+ * and if they have a pet. If both conditions are true, it will update the name of the pet
+ * with whatever the user inputs into the update field.
+ */
 router.patch('/', (req, res) => {
   const { passport } = req.session;
   if(passport){
@@ -82,7 +104,9 @@ router.patch('/', (req, res) => {
   }
 });
 
-// delete
+/**
+ * This request handling allows the user to delete their pet from the database.
+ */
 router.delete('/', (req, res) => {
   const { passport } = req.session;
   if(passport){
