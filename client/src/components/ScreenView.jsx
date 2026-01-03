@@ -18,7 +18,7 @@ import axios from 'axios';
 
 const ScreenView = ({ pet, user, message , initPet}) => {
 
-  const refreshTime = 3_600_000; // <- one hour
+  const refreshTime = 30 * 60 * 1000; // <- 30 minutes
 
   const styles = {
     screen: [ // { border: '5px inset hotpink', height: '360px', margin: '5px', backgroundColor: 'lavender' }
@@ -40,7 +40,7 @@ const ScreenView = ({ pet, user, message , initPet}) => {
   const [ weather, setWeather ] = useState({ location: 'New Orleans', condition: 'Clear', temperature: 70 });
 
   const refreshWeather = () => {
-    axios.get(`/weather/api`)
+    axios.get(`/weather/loc/${weather.location}`)
       .then(({ data: { location, condition, temperature }}) => {
         setWeather({ location, condition, temperature });
       })
@@ -135,7 +135,7 @@ const ScreenView = ({ pet, user, message , initPet}) => {
       {message}
       {renderScreenContents()}
       <img src={chooseImage()} className="w-[600px] h-[300px]" style={{"imageRendering": "pixelated"}}/>
-      <button onClick={ refreshWeather } >REFRESH WEATHER</button>
+      <button onClick={ refreshWeather } >{ weather.condition }</button>
     </div>
   );
 };
