@@ -23,7 +23,7 @@ const ScreenView = ({ pet, user, message , initPet}) => {
   const styles = {
     screen: [ // { border: '5px inset hotpink', height: '360px', margin: '5px', backgroundColor: 'lavender' }
       'border-5', // border width
-      'border-pink-600', // border color
+      'border-blue-600', // border color
       'bg-indigo-50' // background color
     ],
     input: [

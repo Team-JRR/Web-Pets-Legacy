@@ -19,7 +19,7 @@ const DeviceView = ({user}) => {
   // };
 
   const deviceStyles = [
-    'bg-[pink]', // background color
+    'bg-[lightSkyBlue]', // background color
     'rounded-lg', // border radius
     'm-[20px]', // margin
     'p-[15px]', // padding
