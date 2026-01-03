@@ -4,6 +4,9 @@ const express = require('express');
 const router = express.Router();
 
 const { Pet } = require('../db');
+const { handleTimer } = require('../data/updates');
+
+handleTimer();
 
 router.patch('/:status', (req, res) => {
   const { passport } = req.session;
