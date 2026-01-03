@@ -44,9 +44,9 @@ const DeviceView = ({user}) => {
   const [name, setName] = useState('');
 
   const deviceStyles = [
-    'bg-[lightSkyBlue]', // background color
-    'rounded-lg', // border radius
-    'm-[20px]', // margin
+    'bg-device', // background color
+    'sm:rounded-lg', // border radius
+    'sm:m-[20px]', // margin
     'p-[15px]', // padding
   ];
 
