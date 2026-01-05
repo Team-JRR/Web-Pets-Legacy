@@ -5,7 +5,7 @@ import Skills from './Skills';
 import Statuses from './Statuses';
 import Interactions from './Interactions';
 
-const DashboardView = ({ pet, user, availableSkills, behaviors, behaviorMessage, refreshSkillData, refreshPet }) => {
+const DashboardView = ({ pet, user, availableSkills, behaviors, behaviorMessage, displayMessage, refreshSkillData, refreshPet }) => {
   
   const [ tab, setTab ] = useState('Interactions');
 
@@ -34,7 +34,7 @@ const DashboardView = ({ pet, user, availableSkills, behaviors, behaviorMessage,
     if (pet) {
       switch (tab) {
         case 'Interactions':
-          return <Interactions pet={ pet } refreshPet={refreshPet} />;
+          return <Interactions pet={ pet } refreshPet={refreshPet} displayMessage={displayMessage}/>;
         case 'Skills':
           return <Skills
             skills={pet.training}
@@ -48,9 +48,9 @@ const DashboardView = ({ pet, user, availableSkills, behaviors, behaviorMessage,
           return null;
       }
     } else if (user.name) {
-      return <p>Adopt a pet to show its data!</p>;
+      return <p className="border-2 border-black p-[10px]">Adopt a pet to show its data!</p>;
     } else {
-      return <p>Please sign in</p>;
+      return <p className="border-2 border-black p-[10px]">Please sign in</p>;
     }
   };
 
@@ -68,7 +68,7 @@ const DashboardView = ({ pet, user, availableSkills, behaviors, behaviorMessage,
   // TODO: display "off" dashboard when logged out instead of displaying nothing
   return (
     <div className={dashBoardStyles.join(' ')}>
-      <div className="border-2 border-solid " >
+      <div className="border-2 border-solid" >
         Pet Status:
         {onlyStatus()}
       </div>

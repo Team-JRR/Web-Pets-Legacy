@@ -199,6 +199,32 @@ const DeviceView = ({user, refreshUserStats}) => {
    */
   useEffect(initPet, [user.name]);
 
+  /**
+   * Sets the initial message displayed on the screen based on the user.status.
+   * @name Set Initial Message
+   * @function
+   */
+  useEffect(() => {
+    if (pet) {
+      switch (user.status) {
+        case 'adopted':
+          displayMessage('Your pet loves you!');
+          break;
+        case 'disappeared':
+          displayMessage('Your pet is nowhere to be found.');
+          break;
+        case 'befriending':
+          displayMessage('Your pet is waiting for you.');
+          break;
+        default:
+          displayMessage('Welcome to Web Pets!');
+          break;
+      }
+    } else {
+      displayMessage('Welcome to Web Pets!');
+    }
+  }, [user.status]);
+
   return (
     <div id="device" className={ deviceStyles.join(' ') }>
       <div className="relative h-[65px]">
@@ -238,6 +264,7 @@ const DeviceView = ({user, refreshUserStats}) => {
         availableSkills={availableSkills}
         behaviors={behaviors}
         behaviorMessage={behaviorMessage}
+        displayMessage={displayMessage}
         refreshSkillData={refreshSkillData}
         refreshPet={refreshPet}
       />

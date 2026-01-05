@@ -2,7 +2,7 @@
 import React from 'react';
 import axios from 'axios';
 
-const Interactions = ({ pet, refreshPet }) => {
+const Interactions = ({ pet, refreshPet, displayMessage }) => {
 
   const interactionTabStyles = [
     'border-2',
@@ -18,18 +18,23 @@ const Interactions = ({ pet, refreshPet }) => {
         console.error('Unable to PATCH interactions on client: ', err);
       });
   };
-  
+
   const checkLogic = ({ target: { value }}) => {
     switch (value) {
       case 'feed':
+        displayMessage(`You feed ${pet.name}.`);
         incrementStats('hunger', 10);
         break;
       case 'play':
         if (pet.mood > 50) {
+          displayMessage(`${pet.name} is very playful!`);
           incrementStats('mood', 10);
+        } else {
+          displayMessage(`${pet.name} doesn't want to play.`);
         }
         break;
       case 'pet':
+        displayMessage(`You pet ${pet.name}.`);
         incrementStats('mood', 5);
         break;
     }
