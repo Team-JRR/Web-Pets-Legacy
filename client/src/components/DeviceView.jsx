@@ -224,7 +224,7 @@ const DeviceView = ({user, refreshUserStats}) => {
 
         </div>
       </div>
-      Web Pets
+      <h1 className="text-[25px]">Web Pets</h1>
       <ScreenView
         pet={ pet }
         user = {user}

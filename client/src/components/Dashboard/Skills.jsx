@@ -30,6 +30,7 @@ function Skills({ skills, mood, availableSkills, behaviors, behaviorMessage, ref
     'border-2',
     'border-black',
     'p-[10px]',
+    'flex',
   ];
 
   /**
@@ -135,16 +136,19 @@ function Skills({ skills, mood, availableSkills, behaviors, behaviorMessage, ref
 
   return (
     <div className={skillTabStyles.join(' ')}>
-      <h4>Skill Dashboard</h4>
-      {skills.map((skill) => {
-        return <div key={skill.name}>
-          <p>{skill.name}</p>
-          <meter max='100' value={skill.stat}></meter>
-          <button onClick={handleClickTraining} name={skill._id} data-skillname={skill.name}>Train {skill.name}</button>
-        </div>;
-      })}
-      <h5 onClick={toggleSkillChangeMenu}>Change Skills</h5>
-      {menuOpen ? renderSkillChangeMenu() : null}
+      <div className="flex-1">
+        {skills.map((skill) => {
+          return <div key={skill.name}>
+            <p>{skill.name}</p>
+            <meter max='100' value={skill.stat}></meter>
+            <button onClick={handleClickTraining} name={skill._id} data-skillname={skill.name}>Train {skill.name}</button>
+          </div>;
+        })}
+      </div>
+      <div className="flex-1">
+        <h5 onClick={toggleSkillChangeMenu}>Change Skills ↓</h5>
+        {menuOpen ? renderSkillChangeMenu() : null}
+      </div>
     </div>
   );
 }
