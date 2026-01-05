@@ -38,13 +38,13 @@ const updateAllPets = () => {
   Pet.find()
     .then(pets => {
       pets.forEach(pet => {
-        const { min, max } = Math;
+        const { floor, min, max } = Math;
         const { health, hunger, mood, love, userId } = pet;
         const newStats = {
-          health: max(min(health + 0.4 * hunger - 30, 100), 0),
-          hunger: max(hunger - 50, 0),
-          mood: max(min(mood, health, hunger), 0),
-          love: max(min(love + 0.2 * min(mood, health, hunger) - 10, 100), 0),
+          health: floor(max(min(health + 0.4 * hunger - 30, 100), 0)),
+          hunger: floor(max(hunger - 50, 0)),
+          mood: floor(max(min(mood, health, hunger), 0)),
+          love: floor(max(min(love + 0.2 * min(mood, health, hunger) - 10, 100), 0)),
         };
 
         // If health is 0, love will decrease, so reaching 100 love and 0 health cannot happen on the same update.
