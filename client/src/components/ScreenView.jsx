@@ -122,16 +122,14 @@ const ScreenView = ({ pet, user, message, initPet, refreshUserStats}) => {
 
     if (status === 'adopted') {
       return 'endingScreen.gif';
-    } else if (pet === null) {
-      return '/noPet.png';
     } else {
       // if (/sunny|clear/.test(condition)) { return '/sunny.gif'; }
-      if (/cloudy/.test(condition)) { return '/cloudy.gif'; }
-      else if (/overcast|mist|fog/.test(condition)) { return '/overcast.gif'; }
-      else if (/rain|drizzle/.test(condition)) { return '/rainy.gif'; }
-      else if (/sleet|snow|ice|blizzard/.test(condition)) { return '/snowy.gif'; }
+      if (/cloudy/.test(condition)) { return '/cloudyBgLegacy.gif'; }
+      else if (/overcast|mist|fog/.test(condition)) { return '/overcastBgLegacy.gif'; }
+      else if (/rain|drizzle/.test(condition)) { return '/rainyBgLegacy.gif'; }
+      else if (/sleet|snow|ice|blizzard/.test(condition)) { return '/snowyBgLegacy.gif'; }
 
-      return '/sunny.gif';
+      return '/cloudyBgLegacy.gif';
     }
   };
 
@@ -141,11 +139,15 @@ const ScreenView = ({ pet, user, message, initPet, refreshUserStats}) => {
  * Also calls the functions above to render the results to the page.
  * @name renderingScreen
  */
+
+  // else if (pet === null) {
+  //   return '/noPet.png';
+  // } 
   return (
     <div className={ styles.screen.join(' ')} style={{"borderStyle": "inset"}}>
       <div className="w-half h-full grid place-items-center [grid-template-areas:'stack']">
         <img src={chooseImage()} className="w-full [grid-area:stack]" style={{"imageRendering": "pixelated"}}/>
-        <img src={'/legacyCatSprite.gif'} className="translate-y-3/4 h-1/3 [grid-area:stack] object-contain aspect-square inset-y-3/4" style={{"imageRendering": "pixelated"}}/>
+        {pet === null ? <></> : <img src={'/legacyCatSprite.gif'} className="translate-y-3/4 h-1/3 [grid-area:stack] object-contain aspect-square inset-y-3/4" style={{"imageRendering": "pixelated"}}/>}
       </div>
       <div className="bg-[#333032] text-white h-[4.5rem]">
         <p className="h-[1.5rem]">{message}</p>
