@@ -17,7 +17,7 @@ import axios from 'axios';
  */
 
 const ScreenView = ({ pet, user, message, initPet, refreshUserStats, deviceColor, contrastTB}) => {
-console.log(deviceColor)
+
   const refreshTime = 30 * 60 * 1000; // <- 30 minutes
 
   const styles = {

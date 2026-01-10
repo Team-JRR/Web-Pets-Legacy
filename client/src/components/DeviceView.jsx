@@ -4,30 +4,7 @@ import axios from "axios";
 import ScreenView from "./ScreenView";
 import DashboardView from "./Dashboard/DashboardView";
 
-// Calculate brightness based on RGB
-function getLuminance(rgb) {
-  return (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
-}
-// converts hex code to RGB value
-function hexToRgb(hex) {
-  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null;
-}
 
-// gives the color of text/border to be used based on hex/luminance
-function getContrastTBColor(hexColor) {
-  const rgb = hexToRgb(hexColor);
-
-  const luminance = getLuminance(rgb);
-
-  return luminance > 128 ? "black" : "white";
-}
 
 
 /**
@@ -35,13 +12,12 @@ function getContrastTBColor(hexColor) {
  * @description The component that controls most of the game client-side. It handles fetching and storing
  * pet data and passing data down to subcomponents.
  */
-const DeviceView = ({ user, refreshUserStats, refreshDeviceColorData }) => {
-  /**
-   * A state variable that holds text/border color choice based on user device color choice.
-   * @type {string}
-   * @name contrastTB
-   */
-  const [contrastTB, setContrastTB] = useState("");
+const DeviceView = ({
+  user,
+  refreshUserStats,
+  refreshDeviceColorData,
+  contrastTB
+}) => {
   /**
    * A state variable that holds all pet data returned from the server.
    * @type {object}
@@ -83,7 +59,7 @@ const DeviceView = ({ user, refreshUserStats, refreshDeviceColorData }) => {
     "p-[2rem]", // padding
     "w-full",
     "max-w-[1250px]",
-    "sm:justify-self-center"
+    "sm:justify-self-center",
   ];
   /**
    * Fetches all pet data needed to initiate the game. This includes not just the pet object,
@@ -172,7 +148,6 @@ const DeviceView = ({ user, refreshUserStats, refreshDeviceColorData }) => {
         console.error("Failed to get pet skill data:", error);
       });
   };
-  
 
   /**
    * A function that sets the message that is rendered by ScreenView.
@@ -211,7 +186,6 @@ const DeviceView = ({ user, refreshUserStats, refreshDeviceColorData }) => {
         console.error(err);
       });
   };
-
 
   /**
    * Sends a PATCH request to the server to update the current pet's name.
@@ -259,12 +233,11 @@ const DeviceView = ({ user, refreshUserStats, refreshDeviceColorData }) => {
   }, [user.status]);
 
   useEffect(() => {
-    const color = user.deviceColor || "#87cefa";
-    setContrastTB(getContrastTBColor(color));
-  }, [user.deviceColor]);
-
-  useEffect(() => {
-document.body.style.backgroundColor = `color-mix(in oklch, ${user.deviceColor}, black 30%)`;
+    if (user.deviceColor) {
+      document.body.style.backgroundColor = `color-mix(in oklch, ${user.deviceColor}, black 30%)`;
+    } else {
+      document.body.style.backgroundColor = `color-mix(in oklch, #87cefa, black 30%)`;
+    }
   }, [user.deviceColor]);
 
   return (
@@ -272,7 +245,10 @@ document.body.style.backgroundColor = `color-mix(in oklch, ${user.deviceColor}, 
     <div
       id="device"
       className={deviceStyles.join(" ")}
-      style={{ backgroundColor: user.deviceColor || "#87cefa", color: contrastTB }}
+      style={{
+        backgroundColor: user.deviceColor || "#87cefa",
+        color: contrastTB,
+      }}
     >
       <div className="relative h-[65px]">
         <div className="absolute right-[50px] bottom-[-23px] flex flex-col gap-3">
@@ -319,11 +295,9 @@ document.body.style.backgroundColor = `color-mix(in oklch, ${user.deviceColor}, 
         refreshPet={refreshPet}
         contrastTB={contrastTB}
         refreshDeviceColorData={refreshDeviceColorData}
-        setContrastTB={setContrastTB}
       />
     </div>
   );
 };
 
 export default DeviceView;
-
