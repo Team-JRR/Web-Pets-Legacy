@@ -131,7 +131,7 @@ const ScreenView = ({ pet, user, message, initPet, refreshUserStats}) => {
     const { status } = user;
 
     if (status === 'adopted') {
-      return 'endingScreen.gif';
+      return 'endingScreenBgLegacy.gif';
     } else {
       // this should probably be a switch statement.
       if (/sunny|clear/.test(condition)) { return '/sunnyBgLegacy.gif'; }

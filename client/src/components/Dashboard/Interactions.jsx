@@ -42,14 +42,31 @@ const Interactions = ({ pet, refreshPet, displayMessage }) => {
    * @param {event} event - The event fired by clicking an interaction button. The event's target holds the data for
    * which stat the button should increment.
    */
+
+  // internal notes:
+
+  // chicken - medium: can be overfed - > 90 Hunger = less health 
+  // iguana - hard: can be overfed and get annoyed with you. - > 90 Hunger = less health, > 85 mood = less love.
+  // bacteria - impossible: must be treated very exactly. The further away from 50 Hunger and 50 Stimulation (mood) it has, the less love you get. 
+    // if its hunger is > 85, it 'escapes'.
+    // if its stimulation is < 20, it 'dissapears'.
   const checkLogic = ({ target: { value }}) => {
     switch (value) {
       case 'feed':
+        if ((pet.type === "chicken" || pet.type === "iguana") && pet.hunger > 80) {
+          displayMessage(`${pet.name} seems full. ${pet.name} eats slowly.`);
+          incrementStats('hunger', 5);
+        }
         displayMessage(`You feed ${pet.name}.`);
         incrementStats('hunger', 10);
         break;
       case 'play':
         if (pet.mood >= 50) {
+          if (pet.type === "iguana" && pet.mood > 80) {
+            displayMessage(`${pet.name} seems stressed out.`);
+            incrementStats('mood', 3);
+            break;
+          }
           displayMessage(`${pet.name} is very playful!`);
           incrementStats('mood', 10);
         } else {
@@ -57,6 +74,16 @@ const Interactions = ({ pet, refreshPet, displayMessage }) => {
         }
         break;
       case 'pet':
+        if (pet.type === "bacteria") {
+          displayMessage(`You stimulate ${pet.name}.`);
+          incrementStats('mood', 5);
+          break;
+        }
+        if (pet.type === "iguana" && pet.mood > 80) {
+          displayMessage(`${pet.name} doesn't seem to be enjoying itself.`);
+          incrementStats('mood', 3);
+          break;
+        }
         displayMessage(`You pet ${pet.name}.`);
         incrementStats('mood', 5);
         break;
@@ -65,9 +92,9 @@ const Interactions = ({ pet, refreshPet, displayMessage }) => {
 
   return (
     <div className={interactionTabStyles.join(' ')}>
-      <button value='feed' onClick={ checkLogic } >Feed the cat!</button><br />
-      <button value='play' onClick={ checkLogic } >Play with the cat!</button><br />
-      <button value='pet' onClick={ checkLogic } >Pet the cat!</button>
+      <button value='feed' onClick={ checkLogic } >Feed your pet!</button><br />
+      <button value='play' onClick={ checkLogic } >Play with your pet!</button><br />
+      {pet.type === "bacteria" ? <button value='pet' onClick={ checkLogic } >Stimulate your pet!</button> : <button value='pet' onClick={ checkLogic } >Pet your pet!</button>}
     </div>
   );
 };
