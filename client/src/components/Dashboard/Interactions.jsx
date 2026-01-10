@@ -53,9 +53,10 @@ const Interactions = ({ pet, refreshPet, displayMessage }) => {
   const checkLogic = ({ target: { value }}) => {
     switch (value) {
       case 'feed':
-        if ((pet.type === "chicken" || pet.type === "iguana") && pet.hunger > 80) {
+        if ((pet.type === "chicken" || pet.type === "iguana") && pet.hunger >= 80) {
           displayMessage(`${pet.name} seems full. ${pet.name} eats slowly.`);
           incrementStats('hunger', 5);
+          break;
         }
         displayMessage(`You feed ${pet.name}.`);
         incrementStats('hunger', 10);

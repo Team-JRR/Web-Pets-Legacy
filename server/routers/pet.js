@@ -56,7 +56,7 @@ router.post('/', (req, res) => {
             type: req.body.type || "cat",
             training: Object.keys(skills)
               // only take the skills that the pet has access to at love = 0
-              .filter((key) => skills[key].love <= 0)
+              .filter((key) => skills[key].love <= 0 && skills[key].type === req.body.type)
               // map skill names to skill objects with the stat set to 0
               .map((key) => {
                 return {

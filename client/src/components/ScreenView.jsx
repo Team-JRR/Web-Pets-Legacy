@@ -92,7 +92,6 @@ const ScreenView = ({ pet, user, message, initPet, refreshUserStats}) => {
  * @name renderScreenContents
  */
   const renderScreenContents = () => {
-    console.log(pet);
     if (pet !== null) {
       return (
         <div className={styles.popup.join(' ')}>
