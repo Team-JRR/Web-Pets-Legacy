@@ -17,22 +17,23 @@ import axios from 'axios';
  */
 
 const ScreenView = ({ pet, user, message, initPet, refreshUserStats, deviceColor, contrastTB}) => {
-
+console.log(deviceColor)
   const refreshTime = 30 * 60 * 1000; // <- 30 minutes
 
   const styles = {
     screen: [ // { border: '5px inset hotpink', height: '360px', margin: '5px', backgroundColor: 'lavender' }
       'border-10', // border width
-      'bg-indigo-50', // background color
+      'bg-blue-50', // background color
       'm-bottom-[5px]',
       'm-top-[10px]',
     ],
     input: [
       'rounded-md', // border radius
       'border-2 ', // border width
+      `border-${contrastTB}`
     ],
     popup: [
-      'text-white',
+      `text-${contrastTB}`,
       'place-self-center',
       'bg-[#333032]'
     ]

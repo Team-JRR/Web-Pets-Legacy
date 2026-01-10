@@ -27,12 +27,12 @@ router.get("/current-device-color", (req, res) => {
 // used to handle updating user device color preferences in database
 router.patch("/device-color", async (req, res) => {
   const { passport } = req.session;
-  const { deviceColor } = req.body;
+  const deviceColor = req.body.deviceColor;
 
+  if (!passport) return res.status(404).send("User not found");
   try {
     const user = await User.findById(passport.user.id);
     // check for auth
-    if (!passport) return res.status(404).send("User not found");
 
     // saves the user's device color choice in database, otherwise when reset to default
     // button is clicked on profile, it will not pass in a color causing the device to go back to default color settings
