@@ -25,6 +25,7 @@
 const skills = {
   "Scratching": {
     love: 0,
+    type: "cat",
     behaviors: [
       {
         behavior: "scratches you.",
@@ -49,6 +50,7 @@ const skills = {
   },
   "Acrobatics": {
     love: 50,
+    type: "cat",
     behaviors: [
       {
         behavior: "blinks at you.",
@@ -80,6 +82,7 @@ const skills = {
   },
   "Litter Box": {
     love: 0,
+    type: "cat",
     behaviors: [
       {
         behavior: "makes a mess.",
@@ -97,6 +100,7 @@ const skills = {
   },
   "Hunting": {
     love: 50,
+    type: "cat",
     behaviors: [
       {
         behavior: "ignores you.",
@@ -139,7 +143,187 @@ const skills = {
         max: 100,
       }
     ]
-  }
+  },
+  "Clucking": {
+    love: 0,
+    type: "chicken",
+    behaviors: [
+      {
+        behavior: "tweets.",
+        min: 0,
+        max: 60,
+        next: 40
+      },
+      {
+        behavior: "gobbles.",
+        prev: 60,
+        min: 40,
+        max: 100
+      }
+    ]
+  },
+  "Morning Call": {
+    love: 0,
+    type: "chicken",
+    behaviors: [
+      {
+        behavior: "wakes up the neighborhood.",
+        min: 0,
+        max: 85,
+        next: 80
+      },
+      {
+        behavior: "stays silent.",
+        prev: 80,
+        min: 80,
+        max: 100
+      }
+    ]
+  },
+  "Egg-ing": {
+    love: 30,
+    type: "chicken",
+    behaviors: [
+      {
+        behavior: "counts their eggs before they hatch.",
+        min: 0,
+        max: 70,
+        next: 30
+      },
+      {
+        behavior: "lays an egg.",
+        prev: 70,
+        min: 30,
+        max: 100
+      }
+    ]
+  },
+  "Plucking": {
+    love: 40,
+    type: "chicken",
+    behaviors: [
+      {
+        behavior: "pecks at you.",
+        min: 0,
+        max: 40,
+        next: 40
+      },
+      {
+        behavior: "pecks some seed.",
+        prev: 40,
+        min: 40,
+        max: 100
+      }
+    ]
+  },
+  "Climbing": {
+    love: 0,
+    type: "iguana",
+    behaviors: [
+      {
+        behavior: "climbs out of reach.",
+        min: 0,
+        max: 60,
+        next: 50
+      },
+      {
+        behavior: "climbs on you.",
+        prev: 50,
+        min: 50,
+        max: 100
+      }
+    ]
+  },
+  "Digging": {
+    love: 0,
+    type: "iguana",
+    behaviors: [
+      {
+        behavior: "makes random holes.",
+        min: 0,
+        max: 40,
+        next: 40
+      },
+      {
+        behavior: "makes a big hole.",
+        prev: 40,
+        min: 40,
+        max: 100
+      }
+    ]
+  },
+  "Swimming": {
+    love: 60,
+    type: "iguana",
+    behaviors: [
+      {
+        behavior: "nearly sinks.",
+        min: 0,
+        max: 80,
+        next: 80
+      },
+      {
+        behavior: "floats!",
+        prev: 80,
+        min: 80,
+        max: 100
+      }
+    ]
+  },
+  "Mitosis": {
+    love: 0,
+    type: "bacteria",
+    behaviors: [
+      {
+        behavior: "can't spread.",
+        min: 0,
+        max: 80,
+        next: 80
+      },
+      {
+        behavior: "duplicates!",
+        prev: 80,
+        min: 80,
+        max: 100
+      }
+    ]
+  },
+  "Safety": {
+    love: 30,
+    type: "bacteria",
+    behaviors: [
+      {
+        behavior: "gets you sick.",
+        min: 0,
+        max: 90,
+        next: 80
+      },
+      {
+        behavior: "is safe!",
+        prev: 90,
+        min: 80,
+        max: 100
+      }
+    ]
+  },
+  "Emotion?": {
+    love: 60,
+    type: "bacteria",
+    behaviors: [
+      {
+        behavior: "feels nothing.",
+        min: 0,
+        max: 90,
+        next: 80
+      },
+      {
+        behavior: "expresses affection!",
+        prev: 90,
+        min: 80,
+        max: 100
+      }
+    ]
+  },
 };
 
 /**
@@ -169,12 +353,12 @@ const findBehaviors = (petTraining) => {
  * @param {Number} love - the pet's love stat
  * @returns {Array<Skill>}
  */
-const findAvailableSkills = (petTraining, love) => {
+const findAvailableSkills = (petTraining, love, type) => {
   const currentSkills = petTraining.map((skill) => skill.name);
   const availableSkills = [];
 
   for (let skill in skills) {
-    if (love >= skills[skill].love && !currentSkills.includes(skill)) {
+    if (love >= skills[skill].love && !currentSkills.includes(skill) && type === skills[skill].type) {
       availableSkills.push(skill);
     }
   }
