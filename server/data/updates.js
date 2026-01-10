@@ -47,6 +47,39 @@ const updateAllPets = () => {
           love: floor(max(min(love + 0.2 * min(mood, health, hunger) - 10, 100), 0)),
         };
 
+        if (pet.type === "chicken") {
+          if (hunger > 90) {
+            newStats.health -= 20; // goes down if over fed.
+          }
+        }
+
+        if (pet.type === "iguana") {
+          if (hunger > 90) {
+            newStats.health -= 20; // health goes down by 10 instead at max
+          }
+          if (mood > 85) {
+            newStats.love -= 10 // You get no love increase if it was overstimulated, it can even go down.
+          }
+        }
+
+        if (pet.type === "bacteria") {
+          if (hunger >= 60) {
+            newStats.health -= 20;
+          } else if (hunger <= 40) {
+            newStats.health -= 10;
+          } else {
+            newStats.health = health + 15; // sweet spot
+          }
+
+          if (mood >= 60) {
+            newStats.love = love - 5;
+          } else if (mood <= 40) {
+            newStats.love = love - 5;
+          } else {
+            newStats.love = love + 10; // sweet spot
+          }
+        }
+
         // If health is 0, love will decrease, so reaching 100 love and 0 health cannot happen on the same update.
         if (newStats.love >= 100) {
           // the pet is adopted
