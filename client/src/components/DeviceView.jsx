@@ -29,14 +29,13 @@ function getContrastTBColor(hexColor) {
   return luminance > 128 ? "black" : "white";
 }
 
+
 /**
  * @module DeviceView
  * @description The component that controls most of the game client-side. It handles fetching and storing
  * pet data and passing data down to subcomponents.
  */
 const DeviceView = ({ user, refreshUserStats, refreshDeviceColorData }) => {
-
-  const [currentDeviceColor, setCurrentDeviceColor] = useState(user.deviceColor);
   /**
    * A state variable that holds text/border color choice based on user device color choice.
    * @type {string}
@@ -213,6 +212,7 @@ const DeviceView = ({ user, refreshUserStats, refreshDeviceColorData }) => {
       });
   };
 
+
   /**
    * Sends a PATCH request to the server to update the current pet's name.
    * @name changePetName
@@ -262,6 +262,10 @@ const DeviceView = ({ user, refreshUserStats, refreshDeviceColorData }) => {
     setContrastTB(getContrastTBColor(user.deviceColor));
   }, [user.deviceColor]);
 
+  useEffect(() => {
+document.body.style.backgroundColor = `color-mix(in oklch, ${user.deviceColor}, black 30%)`;
+  }, [user.deviceColor]);
+
   return (
     // background color set dynamically using style property + stored user defined color, default to sky blue if they have nothing chosen
     <div
@@ -302,7 +306,6 @@ const DeviceView = ({ user, refreshUserStats, refreshDeviceColorData }) => {
         initPet={initPet}
         refreshUserStats={refreshUserStats}
         deviceColor={user.deviceColor}
-        contrastTB={contrastTB}
       />
       <DashboardView
         pet={pet}
@@ -322,3 +325,4 @@ const DeviceView = ({ user, refreshUserStats, refreshDeviceColorData }) => {
 };
 
 export default DeviceView;
+

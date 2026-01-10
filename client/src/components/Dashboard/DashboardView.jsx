@@ -55,12 +55,12 @@ const DashboardView = ({ pet, user, availableSkills, behaviors, behaviorMessage,
             contrastTB={contrastTB}
           />;
           case 'Profile':
-            return <Profile user={user} contrastTB={contrastTB} refreshDeviceColorData={refreshDeviceColorData} setContrastTB={setContrastTB}/>;
+            return <Profile contrastTB={contrastTB} refreshDeviceColorData={refreshDeviceColorData}/>;
         default:
           return null;
       }
     } else if (user.name) {
-      return <p className="border-2 border-white p-[10px]">Adopt a pet to show its data!</p>;
+      return <p className={`border-2 border-${contrastTB} p-[10px]`}>Adopt a pet to show its data!</p>;
     } else {
       return <p className="border-2 border-white p-[10px]">Please sign in</p>;
     }
