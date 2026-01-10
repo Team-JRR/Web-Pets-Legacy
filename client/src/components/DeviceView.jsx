@@ -288,7 +288,8 @@ const DeviceView = ({ user, refreshUserStats, refreshDeviceColorData }) => {
   }, [user.status]);
 
   useEffect(() => {
-    setContrastTB(getContrastTBColor(user.deviceColor));
+    const color = user.deviceColor || "#87cefa";
+    setContrastTB(getContrastTBColor(color));
   }, [user.deviceColor]);
 
   useEffect(() => {
@@ -300,7 +301,7 @@ document.body.style.backgroundColor = `color-mix(in oklch, ${user.deviceColor}, 
     <div
       id="device"
       className={deviceStyles.join(" ")}
-      style={{ backgroundColor: user.deviceColor, color: contrastTB }}
+      style={{ backgroundColor: user.deviceColor || "#87cefa", color: contrastTB }}
     >
       <div className="relative h-[65px]">
         <div className="absolute right-[50px] bottom-[-23px] flex flex-col gap-3">
@@ -334,7 +335,7 @@ document.body.style.backgroundColor = `color-mix(in oklch, ${user.deviceColor}, 
         message={message}
         initPet={initPet}
         refreshUserStats={refreshUserStats}
-        deviceColor={user.deviceColor}
+        deviceColor={user.deviceColor || "#87cefa"}
       />
       <DashboardView
         pet={pet}

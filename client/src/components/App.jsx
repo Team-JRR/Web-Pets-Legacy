@@ -94,6 +94,13 @@ const App = () => {
           });
       };
 
+      useEffect(() => {
+        if (user.name === '') {
+        document.body.style.backgroundColor = `color-mix(in oklch, "#87cefa", black 30%)`
+        return;
+        }
+      }, [user.name]);
+
   /**
    * Sends a request to the server to trigger a pet update now instead of waiting for midnight. Strictly for debugging/demo.
    * Note that this deliberately does not trigger a refresh of the page - the server doesn't actually wait until all pets are updated
@@ -137,7 +144,7 @@ const App = () => {
         {renderAuthData()}
         <button onClick={forceServerUpdate}>Update Now</button>
       </div>
-      {user.name !== '' ? <DeviceView user={user} refreshUserStats={refreshUserStats} refreshDeviceColorData={refreshDeviceColorData}/>  : null}
+      {<DeviceView user={user} refreshUserStats={refreshUserStats} refreshDeviceColorData={refreshDeviceColorData}/>}
     </div>
   );
 };
