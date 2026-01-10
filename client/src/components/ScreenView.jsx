@@ -44,6 +44,7 @@ const ScreenView = ({ pet, user, message, initPet, refreshUserStats}) => {
  * @name nameState
  */
   const [name, setName] = useState('');
+  const [petType, setPetType] = useState('cat');
   const [ weather, setWeather ] = useState({ location: 'New Orleans', condition: 'Clear', temperature: 70 });
 
   const refreshWeather = () => {
@@ -73,7 +74,7 @@ const ScreenView = ({ pet, user, message, initPet, refreshUserStats}) => {
       // if the user doesn't enter anything the button does nothing
       return;
     }
-    axios.post('/pet', { name })
+    axios.post('/pet', { name, type: petType })
       .then(() => {
         refreshUserStats(); // update the user's stats to make sure the status is set to 'befriending'
         initPet(); // get all the data for the new pet
@@ -91,6 +92,7 @@ const ScreenView = ({ pet, user, message, initPet, refreshUserStats}) => {
  * @name renderScreenContents
  */
   const renderScreenContents = () => {
+    console.log(pet);
     if (pet !== null) {
       return (
         <div className={styles.popup.join(' ')}>
@@ -100,8 +102,16 @@ const ScreenView = ({ pet, user, message, initPet, refreshUserStats}) => {
     } else if (user.name) {
       return (
         <div className={styles.popup.join(' ')}>
-          <input className={ styles.input.join(' ') } type='text' value={name} onChange={(e) => setName(e.target.value)}/>
-          <button onClick={handleSubmit}>Submit</button>
+          <input type="radio" id="petType1" name="petType" value="cat" defaultChecked onClick={() => setPetType('cat')} />
+          <label for="petType1">Cat (Easy) </label>
+          <input type="radio" id="petType2" name="petType" value="chicken" onClick={() => setPetType('chicken')} />
+          <label for="petType2">Chicken (Medium) </label>
+          <input type="radio" id="petType3" name="petType" value="iguana" onClick={() => setPetType('iguana')} />
+          <label for="petType3">Iguana (Hard) </label>
+          <input type="radio" id="petType4" name="petType" value="bacteria" onClick={() => setPetType('bacteria')} />
+          <label for="petType4">Bacteria (Impossible) </label>
+          <input className={ styles.input.join(' ') } type='text' placeholder="Enter your Pet's Name!" value={name} onChange={(e) => setName(e.target.value)}/>
+          <button className="bg-[#333032] hover:bg-white hover:text-[#333032] hover:font-bold rounded-md border-2" onClick={handleSubmit}>Submit</button>
         </div>
       );
     } else {
@@ -123,8 +133,9 @@ const ScreenView = ({ pet, user, message, initPet, refreshUserStats}) => {
     if (status === 'adopted') {
       return 'endingScreen.gif';
     } else {
-      // if (/sunny|clear/.test(condition)) { return '/sunny.gif'; }
-      if (/cloudy/.test(condition)) { return '/cloudyBgLegacy.gif'; }
+      // this should probably be a switch statement.
+      if (/sunny|clear/.test(condition)) { return '/sunnyBgLegacy.gif'; }
+      else if (/cloudy/.test(condition)) { return '/cloudyBgLegacy.gif'; }
       else if (/overcast|mist|fog/.test(condition)) { return '/overcastBgLegacy.gif'; }
       else if (/rain|drizzle/.test(condition)) { return '/rainyBgLegacy.gif'; }
       else if (/sleet|snow|ice|blizzard/.test(condition)) { return '/snowyBgLegacy.gif'; }
@@ -133,7 +144,16 @@ const ScreenView = ({ pet, user, message, initPet, refreshUserStats}) => {
     }
   };
 
-  // this is for if the user does not have a pet
+  const choosePetImage = () => {
+    const { type } = pet;
+
+      if (type === "cat") { return '/legacyCatSprite.gif'; }
+      else if (type === "chicken") { return '/legacyChickenSprite.gif'; }
+      else if (type === "iguana") { return '/legacyLizardSprite.gif'; }
+      else if (type === "bacteria") { return '/legacyBacteriaSprite.gif'; }
+      else { return '/MissingNo.png'; } // this should never happen.
+  }
+
   /**
  * This is rendering the message that is passed down through props.
  * Also calls the functions above to render the results to the page.
@@ -147,7 +167,7 @@ const ScreenView = ({ pet, user, message, initPet, refreshUserStats}) => {
     <div className={ styles.screen.join(' ')} style={{"borderStyle": "inset"}}>
       <div className="w-half h-full grid place-items-center [grid-template-areas:'stack']">
         <img src={chooseImage()} className="w-full [grid-area:stack]" style={{"imageRendering": "pixelated"}}/>
-        {pet === null ? <></> : <img src={'/legacyCatSprite.gif'} className="translate-y-3/4 h-1/3 [grid-area:stack] object-contain aspect-square inset-y-3/4" style={{"imageRendering": "pixelated"}}/>}
+        {pet === null ? <></> : <img src={choosePetImage()} className="translate-y-3/5 h-5/12 [grid-area:stack] object-contain aspect-square inset-y-3/4" style={{"imageRendering": "pixelated"}}/>}
       </div>
       <div className="bg-[#333032] text-white h-[4.5rem]">
         <p className="h-[1.5rem]">{message}</p>

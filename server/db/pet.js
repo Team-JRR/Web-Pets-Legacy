@@ -43,6 +43,7 @@ const behaviorSchema = new mongoose.Schema({
 const petSchema = new mongoose.Schema({
   userId: {type: Schema.Types.ObjectId, ref: 'User'},
   name: String,
+  type: String, // this will determined the type of pet. This will be used later to determined desired outcomes of certain interactions.
   training: [trainingSchema],
   behaviors: [behaviorSchema],
   mood: Number,
