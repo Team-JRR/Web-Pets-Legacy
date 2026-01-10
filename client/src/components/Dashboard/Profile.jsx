@@ -56,7 +56,7 @@ const Profile = ({ contrastTB, refreshDeviceColorData }) => {
         Apply Change
       </button>
             <button className={profileContentStyles.join(" ")} onClick={handleRevert} type="button">
-        Revert Changes?
+        Revert Changes
       </button>
     </div>
   );
