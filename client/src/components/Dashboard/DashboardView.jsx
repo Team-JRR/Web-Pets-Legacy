@@ -7,7 +7,7 @@ import Statuses from './Statuses';
 import Interactions from './Interactions';
 import ProfileView from '../ProfileView.jsx'
 
-const DashboardView = ({ pet, user, availableSkills, behaviors, behaviorMessage, displayMessage, refreshSkillData, refreshPet }) => {
+const DashboardView = ({ pet, archivedPets, user, availableSkills, behaviors, behaviorMessage, displayMessage, refreshSkillData, refreshPet }) => {
   /**
    * A state variable determines which tab in the dashboard should be rendered. Selected by clicking the tab buttons location in the dashboard.
    * @type {string}
@@ -45,7 +45,7 @@ const DashboardView = ({ pet, user, availableSkills, behaviors, behaviorMessage,
 
       switch (tab) {
         case 'Profile':
-          return <ProfileView pet={pet} />;
+          return <ProfileView pet={pet} archivedPets={archivedPets}/>;
         case 'Interactions':
           return <Interactions pet={ pet } refreshPet={refreshPet} displayMessage={displayMessage}/>;
         case 'Skills':
