@@ -49,6 +49,19 @@ const petSchema = new mongoose.Schema({
   love: Number,
   health: Number,
   hunger: Number,
+
+  //archived field
+  isArchived:{
+    //boolean to flip for archived pets
+    type: Boolean,
+    default: false
+  },
+
+  //archivedAt field
+  archivedAt: {
+    type: Date,
+    default: null
+  }
 });
 
 const Pet = mongoose.model('Pet', petSchema);
