@@ -14,7 +14,7 @@ router.patch('/:status', (req, res) => {
   const { amount } = req.body;
 
   if (passport) {
-    Pet.findOne({ userId: passport.user.id })
+    Pet.findOne({ userId: passport.user.id, isArchived: false })
       .then(pet => {
         if (pet) {
           Pet.updateOne(pet, { [status]: Math.min(pet[status] + amount, 100) })
