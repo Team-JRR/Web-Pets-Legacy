@@ -8,6 +8,7 @@ import Interactions from './Interactions';
 import ProfileView from '../ProfileView.jsx'
 import Profile from './Profile';
 
+
 const DashboardView = ({ pet, archivedPets, user, availableSkills, behaviors, behaviorMessage, displayMessage, refreshSkillData, refreshPet, contrastTB, refreshDeviceColorData}) => {
   /**
    * A state variable determines which tab in the dashboard should be rendered. Selected by clicking the tab buttons location in the dashboard.
@@ -16,7 +17,7 @@ const DashboardView = ({ pet, archivedPets, user, availableSkills, behaviors, be
   */
   const [ tab, setTab ] = useState('Interactions');
 
-  const tabs = ['Interactions', 'Skills', 'Profile'];
+  const tabs = ['Interactions', 'Skills', 'Profile', 'Profile'];
 
   // original: style={{ border: '1px solid black', marginTop: '5px' }}
   const dashBoardStyles = [
