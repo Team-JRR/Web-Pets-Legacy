@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Profile = ({ contrastTB, refreshDeviceColorData }) => {
+const Customization = ({ contrastTB, refreshDeviceColorData }) => {
   const [hexInput, setHexInput] = useState("");
 
   const profileTabStyles = ["border-2", `border-${contrastTB}`, "p-[10px]"];
@@ -72,4 +72,4 @@ const Profile = ({ contrastTB, refreshDeviceColorData }) => {
   );
 };
 
-export default Profile;
+export default Customization;

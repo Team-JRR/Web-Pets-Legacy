@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Skills from './Skills';
 import Statuses from './Statuses';
 import Interactions from './Interactions';
-import Profile from './Profile';
+import Customization from './Customization';
 
 const DashboardView = ({ pet, user, availableSkills, behaviors, behaviorMessage, displayMessage, refreshSkillData, refreshPet, contrastTB, refreshDeviceColorData}) => {
   /**
@@ -14,7 +14,7 @@ const DashboardView = ({ pet, user, availableSkills, behaviors, behaviorMessage,
   */
   const [ tab, setTab ] = useState('Interactions');
 
-  const tabs = ['Interactions', 'Skills', 'Profile'];
+  const tabs = ['Interactions', 'Skills', 'Customization'];
 
   // original: style={{ border: '1px solid black', marginTop: '5px' }}
   const dashBoardStyles = [
@@ -54,8 +54,8 @@ const DashboardView = ({ pet, user, availableSkills, behaviors, behaviorMessage,
             refreshSkillData={refreshSkillData}
             contrastTB={contrastTB}
           />;
-          case 'Profile':
-            return <Profile contrastTB={contrastTB} refreshDeviceColorData={refreshDeviceColorData}/>;
+          case 'Customization':
+            return <Customization contrastTB={contrastTB} refreshDeviceColorData={refreshDeviceColorData}/>;
         default:
           return null;
       }
