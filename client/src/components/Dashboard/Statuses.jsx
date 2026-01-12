@@ -13,7 +13,7 @@ const Status = ({pet}) => {
   // html
   return (
     <div>
-      <span> Mood: {mood} </span> |
+      {pet.type === "bacteria" ? <span> Stimulation: {mood} </span> : <span> Mood: {mood} </span> } |
       <span> Love: {love} </span> |
       <span> Hunger: {hunger} </span> |
       <span> Health: {health} </span>

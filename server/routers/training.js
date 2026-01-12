@@ -34,7 +34,7 @@ router.get('/', (req, res) => {
       const petSkillData = {
         training: pet.training,
         behaviors: findBehaviors(pet.training),
-        available: findAvailableSkills(pet.training, pet.love)
+        available: findAvailableSkills(pet.training, pet.love, pet.type)
       };
 
       res.status(200).send(petSkillData);
@@ -93,7 +93,7 @@ router.get('/available/', (req, res) => {
       }
 
       // find available skills based on pet's current stats and send
-      const availableSkills = findAvailableSkills(pet.training, pet.love);
+      const availableSkills = findAvailableSkills(pet.training, pet.love, pet.type);
       res.status(200).send(availableSkills);
     })
     .catch((error) => {

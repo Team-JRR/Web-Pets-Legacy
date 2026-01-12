@@ -33,7 +33,7 @@ router.get('/', (req, res) => {
       const initData = { 
         pet,
         behaviors: findBehaviors(pet.training),
-        available: findAvailableSkills(pet.training, pet.love),
+        available: findAvailableSkills(pet.training, pet.love, pet.type),
         // TODO: add weather data here when available
       };
 
