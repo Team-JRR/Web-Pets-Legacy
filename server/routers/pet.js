@@ -63,11 +63,6 @@ router.get('/archived', (req, res) => {
   })
 });
 
-
-
-
-
-
 /**
  * This is the post handling that will handle the post request the user sends when they want to create a pet.
  * It will check if there is an active session for the user that is trying to create a pet. If there is no
