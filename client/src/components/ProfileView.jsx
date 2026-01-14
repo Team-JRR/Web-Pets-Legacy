@@ -31,8 +31,7 @@ const ProfileView = ({pet, archivedPets}) => {
       {archivedPets.map(pet => (
         <div key={pet._id} className="mb- 2 border p-2">
       <p><strong>Name:</strong> {pet.name}</p>
-      <p><strong>Mood:</strong> {pet.health}</p>
-      <p className="text-sm">Archived: {new Date(pet.archiveAt).toLocaleDateString()}</p>
+      <p><strong>Love:</strong> {pet.love}</p>
     </div>
     ))}
     </div>
