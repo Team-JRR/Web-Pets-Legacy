@@ -32,6 +32,7 @@ const ProfileView = ({pet, archivedPets}) => {
         <div key={pet._id} className="mb- 2 border p-2">
       <p><strong>Name:</strong> {pet.name}</p>
       <p><strong>Love:</strong> {pet.love}</p>
+      <p className="text-sm"><strong>Archived: </strong>{Date(pet.archiveAt)}</p>
     </div>
     ))}
     </div>
