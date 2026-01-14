@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
   }
 
   // look up pet associated with the user
-  Pet.findOne({userId})
+  Pet.findOne({userId, isArchived: false})
     .then((pet) => {
       // check that user has a pet
       if (!pet) {

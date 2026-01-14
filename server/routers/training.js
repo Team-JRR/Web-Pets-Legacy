@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
   }
 
   // look up the pet associated with the logged in user
-  Pet.findOne({ userId })
+  Pet.findOne({ userId, isArchived: false })
     .then((pet) => {
       // check that user has a pet
       if (!pet) {
@@ -84,7 +84,7 @@ router.get('/available/', (req, res) => {
   }
 
   // look up pet associated with the logged in user
-  Pet.findOne({ userId })
+  Pet.findOne({ userId, isArchived: false })
     .then((pet) => {
       // check that user has a pet
       if (!pet) {
@@ -115,7 +115,7 @@ router.get('/behavior', (req, res) => {
   }
 
   // look up pet associated with the logged in user
-  Pet.findOne({ userId })
+  Pet.findOne({ userId, isArchived: false })
     // check that user has a pet
     .then((pet) => {
       if (!pet) {
@@ -156,7 +156,7 @@ router.post('/', (req, res) => {
   }
 
   // look up the pet associated with the logged in user
-  Pet.findOne({ userId })
+  Pet.findOne({ userId, isArchived: false })
     .then((pet) => {
       // check that user has a pet
       if (!pet) {
@@ -203,7 +203,7 @@ router.patch('/:id', (req, res)=> {
   const skillDelta = req.body.delta;
 
   // look up the pet associated with the logged in user
-  Pet.findOne({userId})
+  Pet.findOne({userId, isArchived: false})
     .then((pet) => {
       // check that user has a pet
       if (!pet) {
@@ -254,7 +254,7 @@ router.delete('/:id', (req, res) => {
   const skillId = req.params.id;
 
   // look up the pet associated with the logged in user
-  Pet.findOne({userId})
+  Pet.findOne({userId, isArchived: false})
     .then((pet) => {
       // check that user has a pet
       if (!pet) {

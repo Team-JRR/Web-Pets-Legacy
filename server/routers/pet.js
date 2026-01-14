@@ -19,18 +19,48 @@ router.get('/', (req, res) => {
   // if user is signed in - we check the session to see if the passport exist
   const { passport } = req.session;
   if (passport) {
-    // find the pet with the same userId
-    Pet.findOne({ userId: passport.user.id })
+    // find the pet with the same userId that isn't archived
+    Pet.findOne({ userId: passport.user.id, isArchived: false})
       .then((pet) => {
         res.status(200).send(pet);
       })
       .catch((err) => {
         console.error(err);
-        res.sendStatus(404);
+        res.sendStatus(500);
       });
   } else {
     res.sendStatus(401); // review and check endpoint later
   }
+});
+
+/**
+ * @module pet-routers
+ * @description
+ */
+
+/**
+ * This get request handling will fetch the current users archived pet data.
+ * @name GET /pet/archived
+ */
+router.get('/archived', (req, res) => {
+  // if user is signed in - we check the session to see if the passport exist
+  const { passport } = req.session;
+  if (!passport) {
+   return res.sendStatus(401);
+  }
+  //query db find current user pets that are archived
+  Pet.find({ userId: passport.user.id, isArchived: true})
+  //most recent archive first
+  .sort({ archivedAt: -1 })
+  //limit result shown to 3
+  .limit(3)
+  .then((pets) => {
+    res.status(200).send(pets);
+
+  }).catch((err) => {
+    console.error(err);
+    res.sendStatus(500);
+  });
 });
 
 /**
@@ -45,7 +75,7 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const { passport } = req.session;
   if (passport) {
-    Pet.findOne({ userId: passport.user.id })
+    Pet.findOne({ userId: passport.user.id, isArchived: false})
       .then((pet) => {
         if (pet) {
           res.status(200).send('You already have a pet');
@@ -102,7 +132,7 @@ router.post('/', (req, res) => {
 router.patch('/', (req, res) => {
   const { passport } = req.session;
   if(passport){
-    Pet.findOneAndUpdate({ userId: passport.user.id }, { name: req.body.name }, {new: true})
+    Pet.findOneAndUpdate({ userId: passport.user.id, isArchived: false }, { name: req.body.name }, {new: true})
     .then((pet) => {
       // change the name to the req.body.name
       res.status(200).send(pet);
@@ -123,7 +153,7 @@ router.patch('/', (req, res) => {
 router.delete('/', (req, res) => {
   const { passport } = req.session;
   if(passport){
-    Pet.findOneAndDelete({ userId: passport.user.id })
+    Pet.findOneAndUpdate({ userId: passport.user.id, isArchived: false}, {isArchived: true, archivedAt: new Date()})
       .then(() => {
         res.sendStatus(200);
       })

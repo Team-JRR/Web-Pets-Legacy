@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+
 import ScreenView from "./ScreenView";
 import DashboardView from "./Dashboard/DashboardView";
 
@@ -24,6 +25,13 @@ const DeviceView = ({
    * @name pet
    */
   const [pet, setPet] = useState(null);
+
+  /**
+   * A state variable that holds all archived pet data returned from the server.
+   * @type {array}
+   * @name pet
+   */
+  const [ archivedPets, setArchivedPets ] = useState([])
   /**
    * A state variable that is passed down to render a message on ScreenView.
    * @type {string}
@@ -120,6 +128,24 @@ const DeviceView = ({
       setPet(null);
     }
   };
+  /**
+   * Fetches archived pet array.
+   *
+   * @name fetchArchived
+   * @function
+   */
+  const fetchArchived = () => {
+    //GET to backend
+    axios.get('/pet/archived')
+    //Receives up to 3 archive pets
+    .then(({data}) => {
+    //store them in state
+      setArchivedPets(data)
+    }).catch((err) => {
+      console.log('No archived pets:', err)
+    })
+
+  };
 
   /**
    * Fetches and updates skill data (the pet's training array, availableSkills,
@@ -181,6 +207,10 @@ const DeviceView = ({
       .then(() => {
         displayMessage("Welcome to Web Pets!");
         refreshPet();
+        //remove deleted pet
+        setPet(null)
+        //refresh archived list
+        fetchArchived();
       })
       .catch((err) => {
         console.error(err);
@@ -293,6 +323,7 @@ const DeviceView = ({
         displayMessage={displayMessage}
         refreshSkillData={refreshSkillData}
         refreshPet={refreshPet}
+        archivedPets={archivedPets}
         contrastTB={contrastTB}
         refreshDeviceColorData={refreshDeviceColorData}
       />
