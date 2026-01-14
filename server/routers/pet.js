@@ -55,12 +55,12 @@ router.get('/archived', (req, res) => {
   //limit result shown to 3
   .limit(3)
   .then((pets) => {
-    res.status(200).send(pets)
+    res.status(200).send(pets);
 
   }).catch((err) => {
-    console.log('Pet not archived:', err)
+    console.error(err);
     res.sendStatus(500);
-  })
+  });
 });
 
 /**
