@@ -142,7 +142,7 @@ const DeviceView = ({
     //store them in state
       setArchivedPets(data)
     }).catch((err) => {
-      console.log('No archived pets:', err)
+      console.error('No archived pets:', err)
     })
 
   };
