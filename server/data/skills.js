@@ -352,7 +352,7 @@ const findBehaviors = (petTraining) => {
  * Finds the skills that a pet does not know, but could learn given its current love stat.
  * @param {Array} petTraining - an array of pet training objects with a name and stat
  * @param {Number} love - the pet's love stat
- * @param {string} type - the pet's type 
+ * @param {string} type - the pet's type
  * @returns {Array<Skill>}
  */
 const findAvailableSkills = (petTraining, love, type) => {
@@ -360,7 +360,7 @@ const findAvailableSkills = (petTraining, love, type) => {
   const availableSkills = [];
 
   for (let skill in skills) {
-    if (love >= skills[skill].love && !currentSkills.includes(skill)) {\
+    if (love >= skills[skill].love && !currentSkills.includes(skill)) {
       if (type === skills[skill].type) {
         availableSkills.push(skill);
       }
