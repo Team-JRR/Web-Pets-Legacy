@@ -360,8 +360,7 @@ const findAvailableSkills = (petTraining, love, type) => {
   const availableSkills = [];
 
   for (let skill in skills) {
-    if (love >= skills[skill].love && !currentSkills.includes(skill)) {
-      console.log(type, skills[skill].type)
+    if (love >= skills[skill].love && !currentSkills.includes(skill)) {\
       if (type === skills[skill].type) {
         availableSkills.push(skill);
       }
