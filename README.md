@@ -2,6 +2,11 @@
 
 Welcome to Web Pets! Take care of a strange pet thats come at your door! If you treat it well, it might even stick around.
 
+#### New Features from Original
+* New Pet Types - You can now take care of not just a cat, but also a Chicken, Iguana, and Bacteria Cell. Each one represents a new difficultly level. The Cat being easy, Chicken medium, Iguana hard, and the Bacteria impossible!
+* Device Customization - You can now change the color of your current device, and it will adapt the text colors to maintain readability. Personalize your settup!
+* Profile Page - An all in one place to track your current pet progress, as well as previous pets, whether you adopted them, lost them, or deleted them.
+
 ### Getting Started
 
 To get started, create and populate the environment variables in `server/.env`, then run:
@@ -53,11 +58,6 @@ See `server/.env.example` for a template file.
 * Art assets for nighttime
 * Some way for weather to interact with gameplay - possibly the pet would need specific care (warmth, shelter, etc.) depending on the weather conditions or risk a health penalty
 * Location specific weather - currently the weather always matches New Orleans rather than or allowing the user to specify a location or finding the location from their ip
-
-#### New Features from Original
-* New Pet Types - You can now take care of not just a cat, but also a Chicken, Iguana, and Bacteria Cell. Each one represents a new difficultly level. The Cat being easy, Chicken medium, Iguana hard, and the Bacteria impossible!
-* Device Customization - You can now change the color of your current device, and it will adapt the text colors to maintain readability. Personalize your settup!
-* Profile Page - An all in one place to track your current pet progress, as well as previous pets, whether you adopted them, lost them, or deleted them.
 
 ### Contributing
 
