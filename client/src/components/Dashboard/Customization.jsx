@@ -2,18 +2,33 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const Customization = ({ contrastTB, refreshDeviceColorData }) => {
+  /**
+   * state variable that holds the current input value of custom hex code input
+   * @type {string}
+   * @name hexInput
+   */
   const [hexInput, setHexInput] = useState("");
 
+// variables used for styling
   const profileTabStyles = ["border-2", `border-${contrastTB}`, "p-[10px]"];
-
   const profileContentStyles = ["border", `border-${contrastTB}`, "p-[10px]"];
+
+  /**
+   * handles updating the value of hexInput state variable
+   * @name handleInputChange
+   * @function
+   */
   const handleInputChange = (e) => {
     setHexInput(e.target.value);
   };
 
-  // handles submitting the hex code user entered to be saved to their database profile
-  // after that the refreshDeviceColorData method is called which causes a rerender of the App component,
-  // which then rerenders the DeviceViews componenet allowing it to see the updated color immediately.
+  /**
+   * handles submitting the hex code user entered to be saved to their database profile
+   * after that the refreshDeviceColorData method is called which causes a rerender of the App component,
+   * which then rerenders the DeviceViews component allowing it to see the updated color immediately.
+   * @name handleHexSubmit
+   * @function
+   */
   const handleHexSubmit = () => {
     axios
       .patch(`/user/device-color`, {
@@ -28,8 +43,12 @@ const Customization = ({ contrastTB, refreshDeviceColorData }) => {
       });
   };
 
-  // triggers patch handler in server/routers/user.js, when it is passed undefined as the device color value
-  // it sets the value of the currently logged in User's device color back to default (hardcoded value in the handler)
+  /**
+   * triggers patch handler in server/routers/user.js, when it is passed undefined as the device color value
+   * it sets the value of the currently logged in User's device color back to default (hardcoded value in the handler)
+   * @name handleRevert
+   * @function
+   */
   const handleRevert = () => {
     axios
       .patch(`/user/device-color`, {
