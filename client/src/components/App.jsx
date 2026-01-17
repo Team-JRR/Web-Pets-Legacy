@@ -46,6 +46,12 @@ const App = () => {
       });
   }, []);
 
+  /**
+   * App sets initial text and border color based on user's stored device color hex code.
+   * If user hasn't logged in we set the color used to be a default blue color.
+   * @name Initial Text Border Color
+   * @function
+   */
   useEffect(() => {
     const color = user.deviceColor || "#87cefa";
     setContrastTB(getContrastTBColor(color));
@@ -93,6 +99,11 @@ const App = () => {
       });
   };
 
+  /**
+   * Handles requesting updated device color property for a logged in user, without overwriting any other property
+   * @name refreshDeviceColorData
+   * @function
+   */
   const refreshDeviceColorData = () => {
     axios
       .get("/user/current-device-color")
@@ -114,7 +125,12 @@ const App = () => {
       });
   };
 
-  // gives the color of text/border to be used based on hex/luminance
+  /**
+   * Handles setting text and border color on page to black or white, depending on the hex code that a user has chosen for their device color.
+   * If no hex code is chosen (if user isn't logged in), the backend is set up to use a default light blue color for the device.
+   * @name getContrastTBColor
+   * @function
+   */
   const getContrastTBColor = (hexColor) => {
     const rgb = hexToRgb(hexColor);
 
@@ -126,7 +142,7 @@ const App = () => {
     function hexToRgb(hex) {
       const result =
         /^#?([a-f\d])([a-f\d])([a-f\d])$|^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(
-          hex
+          hex,
         );
 
       if (!result) return null;
